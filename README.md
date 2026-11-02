@@ -205,6 +205,13 @@ $ git config --list
 - **확인**: [evidence §3](docs/evidence.md#3-권한-변경-변경-전후) 의 변경 전/후 출력 비교
 - **해결/대안**: 리눅스 컨테이너(alpine) 안에서 동일 실험을 수행해 권한 변경을 확인
 
+### ⑤ Docker Desktop 설치 실패: `Virtual Machine Platform` 미활성화
+- **문제**: Docker Desktop 설치 시 `Installation failed. One prerequisite is not fulfilled.` (Microsoft Store 설치도 `0x00000001` 오류로 실패)
+- **원인 가설**: Docker(WSL 2 백엔드)가 사용하는 Windows 가상화 기능 `Virtual Machine Platform` 이 꺼져 있고, *Per-user* 설치는 관리자 권한이 없어 이를 켤 수 없음
+- **확인**: 설치 프로그램 오류 메시지에서 원인 및 두 가지 대안(`wsl --install` 또는 All-users 설치) 확인
+- **해결**: 설치 프로그램 재실행 → **All-users installation** 선택(관리자 승인) → `Installation succeeded` → 재부팅
+- **배운 점**: 컨테이너는 리눅스 커널 기능을 쓰므로 Windows에서는 가상화(WSL 2) 기반이 먼저 필요하다. 설치 오류 메시지가 해결책을 알려 주는 경우가 많으니 끝까지 읽는다.
+
 ### (참고) Windows Git Bash 경로 변환
 - Git Bash는 `/data` 같은 경로를 `C:/Program Files/Git/data` 로 자동 변환해 `docker exec`·`-v` 가 실패할 수 있다.
 - `export MSYS_NO_PATHCONV=1` 및 `cygpath -m` 으로 경로를 지정해 해결 (`collect_evidence.sh` 에 반영).
