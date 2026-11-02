@@ -14,27 +14,39 @@ bash scripts/collect_evidence.sh      # Docker(OrbStack / Docker Desktop) 실행
 ## 0) 프로젝트 개요
 터미널·Docker·Git을 직접 세팅하고, NGINX 기반 커스텀 이미지를 만들어 포트 매핑, 바인드 마운트, 볼륨 영속성을 검증한다. 누가 실행해도 같은 결과가 나오는 **재현 가능한 실행 환경**을 만드는 것이 목표다.
 
+
+### 핵심 검증 결과 요약
+| 항목 | 결과 | 근거 |
+|---|---|---|
+| Docker 동작 | `Docker version 29.9.2`, `docker info` Server 응답, `Hello from Docker!` | [§4~5](docs/evidence.md#4-docker-설치-및-데몬-점검) |
+| 커스텀 이미지 | `my-web:1.0` 빌드 성공 (nginx:alpine 기반) | [§7](docs/evidence.md#7-dockerfile-커스텀-이미지-빌드) |
+| 포트 매핑 2회 | 8080, 8081 모두 `Hello from my custom NGINX container!` 응답 | [§8](docs/evidence.md#8-포트-매핑-2회) |
+| 바인드 마운트 | 호스트 파일 수정 후 재빌드 없이 `v1 → v2` 반영 | [§10](docs/evidence.md#10-바인드-마운트-반영-호스트-변경-전후) |
+| 볼륨 영속성 | `vol-test` 삭제 후 새 컨테이너에서 `persistent-data` 유지 | [§11](docs/evidence.md#11-docker-볼륨-영속성-컨테이너-삭제-전후) |
+| 권한 변경 | 컨테이너에서 `-rw-r--r--` → `-rwxr-xr-x`(755), `drwxr-xr-x` → `drwx------`(700) | [§3](docs/evidence.md#3-권한-변경-변경-전후) |
+| 환경 변수 | Compose로 `APP_ENV=prod`, 포트 9090 주입 확인 | [§13](docs/evidence.md#13-보너스-docker-compose) |
+
 ## 1) 실행 환경
 | 항목 | 값 |
 |---|---|
-| OS | [evidence §1](docs/evidence.md#1-실행-환경) |
-| Shell / Terminal | zsh / Terminal.app (또는 iTerm2) |
+| OS | Windows 11 (10.0.26200) |
+| Shell / Terminal | bash / Git Bash (MINGW64) |
 | Container Runtime | OrbStack(macOS) / Docker Desktop(Windows) |
-| Docker | [evidence §1](docs/evidence.md#1-실행-환경) |
-| Git | [evidence §1](docs/evidence.md#1-실행-환경) |
+| Docker | Docker Desktop 4.97.0 (Engine 29.9.2, WSL 2 백엔드) |
+| Git | 2.56.0.windows.4 |
 
 ## 2) 수행 체크리스트
-- [ ] 터미널 기본 조작 및 폴더 구성
-- [ ] 권한 변경 실습 (파일 1, 디렉토리 1)
-- [ ] Docker 설치/점검 (`--version`, `info`)
-- [ ] Docker 운영 명령 (`images`, `ps -a`, `logs`, `stats`)
-- [ ] hello-world / ubuntu 컨테이너 실행
-- [ ] Dockerfile 커스텀 이미지 빌드/실행
-- [ ] 포트 매핑 접속 (2회)
-- [ ] 바인드 마운트 반영
-- [ ] 볼륨 영속성
-- [ ] Git 설정 + VSCode GitHub 연동
-- [ ] (보너스) Docker Compose / 환경 변수 / SSH 키
+- [x] 터미널 기본 조작 및 폴더 구성
+- [x] 권한 변경 실습 (파일 1, 디렉토리 1)
+- [x] Docker 설치/점검 (`--version`, `info`)
+- [x] Docker 운영 명령 (`images`, `ps -a`, `logs`, `stats`)
+- [x] hello-world / ubuntu 컨테이너 실행
+- [x] Dockerfile 커스텀 이미지 빌드/실행
+- [x] 포트 매핑 접속 (2회) — curl ✅ / 브라우저 스크린샷 대기
+- [x] 바인드 마운트 반영
+- [x] 볼륨 영속성
+- [ ] Git 설정 + VSCode GitHub 연동 (git 설정 ✅ / VSCode 스크린샷 대기)
+- [x] (보너스) Docker Compose / 환경 변수 / SSH 키
 
 ## 3) 저장소 구조
 ```
@@ -211,6 +223,13 @@ $ git config --list
 - **확인**: 설치 프로그램 오류 메시지에서 원인 및 두 가지 대안(`wsl --install` 또는 All-users 설치) 확인
 - **해결**: 설치 프로그램 재실행 → **All-users installation** 선택(관리자 승인) → `Installation succeeded` → 재부팅
 - **배운 점**: 컨테이너는 리눅스 커널 기능을 쓰므로 Windows에서는 가상화(WSL 2) 기반이 먼저 필요하다. 설치 오류 메시지가 해결책을 알려 주는 경우가 많으니 끝까지 읽는다.
+
+### ⑥ Compose 실행 시 `port is already allocated`
+- **문제**: `docker compose up -d --build` → `Bind for 0.0.0.0:8080 failed: port is already allocated`
+- **원인 가설**: 앞 단계에서 띄운 `my-web-8080` 컨테이너가 호스트 8080 포트를 이미 점유 중
+- **확인**: `docker ps` 에서 `0.0.0.0:8080->80/tcp my-web-8080` 확인 ([evidence §8](docs/evidence.md#8-포트-매핑-2회))
+- **해결**: 환경 변수로 호스트 포트만 변경 `WEB_PORT=9090 APP_ENV=prod docker compose up -d` → `curl localhost:9090` 응답, `printenv APP_ENV` = `prod` 확인 ([evidence §13](docs/evidence.md#13-보너스-docker-compose))
+- **배운 점**: 호스트 포트는 하나의 프로세스만 점유할 수 있다. 포트를 코드가 아닌 환경 변수로 빼 두면 충돌 시 설정만 바꿔 해결할 수 있다.
 
 ### (참고) Windows Git Bash 경로 변환
 - Git Bash는 `/data` 같은 경로를 `C:/Program Files/Git/data` 로 자동 변환해 `docker exec`·`-v` 가 실패할 수 있다.
