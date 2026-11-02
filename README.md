@@ -191,6 +191,7 @@ $ docker stop my-ubuntu   # 중지 → docker ps -a 에서 Exited 확인
 | `ENV APP_ENV=dev` | 실행 모드를 코드 밖 설정으로 분리 |
 | `COPY app/ /usr/share/nginx/html/` | NGINX 기본 페이지를 내 페이지로 교체 |
 | `HEALTHCHECK` | 컨테이너가 실제로 응답하는지 Docker가 주기적으로 점검 |
+| `LABEL ...authors` | 이미지 작성자 정보 기록 (직접 추가) |
 
 ```bash
 $ docker build -t my-web:1.0 .
