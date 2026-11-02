@@ -35,7 +35,9 @@ mask() {  # 이메일 등 민감정보 마스킹
 }
 
 # 이전 실행 흔적 정리
-docker rm -f my-web-8080 my-web-8081 my-web-bind vol-test vol-test2 my-ubuntu >/dev/null 2>&1
+docker rm -f my-web-8080 my-web-8081 my-web-bind vol-test vol-test2 my-ubuntu ubuntu-test >/dev/null 2>&1
+docker compose down >/dev/null 2>&1
+docker volume rm mydata >/dev/null 2>&1
 sedi 's/Version: <code>v2<\/code>/Version: <code>v1<\/code>/' app/index.html
 
 mkdir -p docs
@@ -106,14 +108,27 @@ run 'docker run hello-world'
 run 'docker pull ubuntu'
 run 'docker run --rm ubuntu bash -c "ls && echo inside container"'
 end
-section "6. attach vs exec 관찰"; begin
-run 'docker run -dit --name my-ubuntu ubuntu bash'
-run 'docker exec my-ubuntu bash -c "echo exec로 새 프로세스 실행 && ps aux"'
-run 'docker ps --filter name=my-ubuntu'
-end
-note "exec 로 실행한 프로세스가 끝나도 컨테이너는 Up 상태 유지. 반면 \`docker attach my-ubuntu\` 후 \`exit\` 하면 메인 프로세스(bash)가 종료되어 컨테이너도 Exited 로 바뀐다 (빠져나오기만 하려면 Ctrl+P, Ctrl+Q)."
+section "6. ubuntu 내부 진입 / attach vs exec 관찰"
+note "컨테이너의 bash 에 표준입력(-i)으로 명령을 직접 전달해 내부에서 실행한다."
 begin
-run 'docker stop my-ubuntu && docker ps -a --filter name=my-ubuntu'
+run 'docker rm -f ubuntu-test >/dev/null 2>&1; printf "ls\necho hello from inside container\nhostname\nexit\n" | docker run -i --name ubuntu-test ubuntu bash'
+run 'docker ps -a --filter name=ubuntu-test --format "{{.Names}}  {{.Status}}"'
+end
+note "**exec**: 실행 중인 컨테이너에 *새 프로세스*를 추가로 띄운다. exec 셸을 exit 해도 메인 프로세스(bash, PID 1)는 그대로라 컨테이너가 유지된다."
+begin
+run 'docker rm -f my-ubuntu >/dev/null 2>&1; docker run -di --name my-ubuntu ubuntu bash'
+run 'printf "echo inside via exec; ps -o pid,cmd; exit\n" | docker exec -i my-ubuntu bash'
+run 'docker ps --filter name=my-ubuntu --format "{{.Names}}  {{.Status}}"'
+end
+note "**attach**: 컨테이너의 *메인 프로세스(PID 1)* 표준입출력에 직접 연결한다. 여기서 exit 하면 메인 프로세스가 끝나므로 컨테이너도 종료된다."
+begin
+run 'printf "echo inside via attach; exit\n" | docker attach my-ubuntu'
+sleep 1
+run 'docker ps -a --filter name=my-ubuntu --format "{{.Names}}  {{.Status}}"'
+end
+note "정리: exec 후 exit → **Up 유지**, attach 후 exit → **Exited**. (attach 상태에서 종료 없이 빠져나오려면 Ctrl+P, Ctrl+Q)"
+begin
+run 'docker start my-ubuntu && docker stop my-ubuntu && docker ps -a --filter name=my-ubuntu --format "{{.Names}}  {{.Status}}"'
 end
 
 echo "▶ 이미지 빌드 / 포트 매핑"
@@ -179,6 +194,9 @@ run 'docker compose down'
 run 'WEB_PORT=9090 APP_ENV=prod docker compose up -d'
 sleep 2
 run 'curl -s http://localhost:9090 | grep h1'
+sleep 10
+run 'docker compose ps'
+run 'docker compose logs --tail 6 helper'
 run 'docker compose exec web printenv APP_ENV'
 run 'docker compose down'
 end
