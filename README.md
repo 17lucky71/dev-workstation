@@ -192,6 +192,19 @@ $ git config --list
 - **해결**: 일반 Chrome에서 설정 변경 및 저장 완료
 - **배운 점**: 같은 요청이 환경에 따라 다르게 동작하면, 환경(브라우저/확장 프로그램)을 바꿔 원인 범위를 좁힌다.
 
+### ③ 스크립트 실행 시 `docker: command not found`
+- **문제**: `bash scripts/collect_evidence.sh` 실행 결과, Docker 관련 명령이 모두 `docker: command not found`
+- **원인 가설**: Docker Desktop 설치 전에 열어 둔 Git Bash 창이라 PATH에 Docker 경로가 반영되지 않았거나, Docker Desktop이 아직 실행되지 않음
+- **확인**: 같은 창에서 `docker --version` 실패 → Docker Desktop 실행(Engine running) 후 Git Bash를 새로 열어 `docker --version` 재확인
+- **해결**: 새 터미널에서 스크립트 재실행
+- **배운 점**: 프로그램 설치 후에는 터미널을 새로 열어야 환경 변수(PATH)가 갱신된다.
+
+### ④ Windows에서 `chmod` 가 반영되지 않음
+- **문제**: Git Bash에서 `chmod 755 note.txt`, `chmod 700 perm_dir` 실행 후에도 `ls -l` 결과가 그대로
+- **원인 가설**: Windows NTFS는 리눅스식 r/w/x 권한 비트를 저장하지 않음
+- **확인**: [evidence §3](docs/evidence.md#3-권한-변경-변경-전후) 의 변경 전/후 출력 비교
+- **해결/대안**: 리눅스 컨테이너(alpine) 안에서 동일 실험을 수행해 권한 변경을 확인
+
 ### (참고) Windows Git Bash 경로 변환
 - Git Bash는 `/data` 같은 경로를 `C:/Program Files/Git/data` 로 자동 변환해 `docker exec`·`-v` 가 실패할 수 있다.
 - `export MSYS_NO_PATHCONV=1` 및 `cygpath -m` 으로 경로를 지정해 해결 (`collect_evidence.sh` 에 반영).
