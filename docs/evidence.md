@@ -1,7 +1,7 @@
 # 수행 로그 (증거)
 
 > `scripts/collect_evidence.sh` 로 자동 수집한 실제 터미널 명령/출력입니다.
-> 수집 시각: 2026-11-02 16:53:44    
+> 수집 시각: 2026-11-02 17:25:30    
 
 ## 1. 실행 환경
 
@@ -35,23 +35,23 @@ $ mv note_copy.txt renamed.txt
 $ mkdir tmpdir && mv renamed.txt tmpdir/
 $ ls -la
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 ..
--rw-r--r-- 1 82103 197609  0 Nov  2 16:53 empty.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 note.txt
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 tmpdir
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 ..
+-rw-r--r-- 1 82103 197609  0 Nov  2 17:25 empty.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 note.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 tmpdir
 $ ls -la tmpdir
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 ..
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 renamed.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 ..
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 renamed.txt
 $ rm tmpdir/renamed.txt && rmdir tmpdir
 $ ls -la
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 16:53 ..
--rw-r--r-- 1 82103 197609  0 Nov  2 16:53 empty.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 note.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 17:25 ..
+-rw-r--r-- 1 82103 197609  0 Nov  2 17:25 empty.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 note.txt
 $ cd .. && pwd
 /c/Users/82103/codyssey
 $ ls "/c/Users/82103/codyssey/practice/note.txt"
@@ -64,27 +64,27 @@ $ ls "/c/Users/82103/codyssey/practice/note.txt"
 
 ```bash
 $ ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 note.txt
 $ chmod 755 note.txt && ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 note.txt
 $ chmod 644 note.txt && ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 16:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 17:25 note.txt
 $ mkdir -p perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 16:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 17:25 perm_dir
 $ chmod 700 perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 16:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 17:25 perm_dir
 $ chmod 755 perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 16:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 17:25 perm_dir
 ```
 Linux 컨테이너 안에서 동일 실험:
 
 ```bash
 $ docker run --rm alpine sh -c 'touch f.txt; mkdir d; ls -l f.txt; ls -ld d; chmod 755 f.txt; chmod 700 d; echo "--- after ---"; ls -l f.txt; ls -ld d'
--rw-r--r--    1 root     root             0 Nov  2 07:53 f.txt
-drwxr-xr-x    2 root     root          4096 Nov  2 07:53 d
+-rw-r--r--    1 root     root             0 Nov  2 08:25 f.txt
+drwxr-xr-x    2 root     root          4096 Nov  2 08:25 d
 --- after ---
--rwxr-xr-x    1 root     root             0 Nov  2 07:53 f.txt
-drwx------    2 root     root          4096 Nov  2 07:53 d
+-rwxr-xr-x    1 root     root             0 Nov  2 08:25 f.txt
+drwx------    2 root     root          4096 Nov  2 08:25 d
 ```
 
 ## 4. Docker 설치 및 데몬 점검
@@ -145,10 +145,10 @@ Client:
     Path:     C:\Program Files\Docker\cli-plugins\docker-scout.exe
 
 Server:
- Containers: 1
+ Containers: 2
   Running: 0
   Paused: 0
-  Stopped: 1
+  Stopped: 2
  Images: 4
  Server Version: 29.9.2
  Storage Driver: overlayfs
@@ -282,7 +282,7 @@ tmp
 usr
 var
 hello from inside container
-7c2fc605d172
+d8183bd47a1a
 $ docker ps -a --filter name=ubuntu-test --format "{{.Names}}  {{.Status}}"
 ubuntu-test  Exited (0) Less than a second ago
 ```
@@ -290,7 +290,7 @@ ubuntu-test  Exited (0) Less than a second ago
 
 ```bash
 $ docker rm -f my-ubuntu >/dev/null 2>&1; docker run -di --name my-ubuntu ubuntu bash
-ee6e5782d3323cac3f39005862948dab82f54766af5d8ef21816e471b3311432
+2c40cb2386a607077fa7af3c874f8980da3f819600ad7f3a44dbf9df2ca5b52e
 $ printf "echo inside via exec; ps -o pid,cmd; exit\n" | docker exec -i my-ubuntu bash
 inside via exec
     PID CMD
@@ -298,7 +298,7 @@ inside via exec
       7 bash
      13 ps -o pid,cmd
 $ docker ps --filter name=my-ubuntu --format "{{.Names}}  {{.Status}}"
-my-ubuntu  Up Less than a second
+my-ubuntu  Up 1 second
 ```
 **attach**: 컨테이너의 *메인 프로세스(PID 1)* 표준입출력에 직접 연결한다. 여기서 exit 하면 메인 프로세스가 끝나므로 컨테이너도 종료된다.
 
@@ -337,45 +337,47 @@ COPY app/ /usr/share/nginx/html/
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost/ >/dev/null || exit 1
 
 EXPOSE 80
+LABEL org.opencontainers.image.authors="17lucky71"
+
 $ docker build -t my-web:1.0 .
 #0 building with "desktop-linux" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 813B done
+#1 transferring dockerfile: 867B 0.0s done
 #1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/nginx:alpine
-#2 DONE 1.6s
+#2 DONE 2.1s
 
 #3 [internal] load .dockerignore
-#3 transferring context: 2B done
+#3 transferring context: 2B 0.0s done
 #3 DONE 0.0s
 
 #4 [internal] load build context
-#4 transferring context: 596B done
+#4 transferring context: 586B 0.0s done
 #4 DONE 0.0s
 
 #5 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
 #5 resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606 0.0s done
-#5 DONE 0.0s
+#5 DONE 0.1s
 
 #6 [2/2] COPY app/ /usr/share/nginx/html/
 #6 CACHED
 
 #7 exporting to image
 #7 exporting layers done
-#7 exporting manifest sha256:7b961b9cf221d82f8ee6d598418d166284ca18714aaff3180dab00958e9da064 done
-#7 exporting config sha256:25ae48d4708540b2e855bafe28bd40f0bd6447bf3544d732b65c574ba6fee87b done
-#7 exporting attestation manifest sha256:d1a904884931d064755216d5893ae61460c927cc0d283327668ea35e7788e6c7 0.0s done
-#7 exporting manifest list sha256:e3391dfda803677c652b899692697e746126bd8dfca2ef34a1c451ed6f69b491 done
+#7 exporting manifest sha256:bec6439732a2c2b16bdeaee376e21e1faf321b15e35509e7f65990d4044fb910 done
+#7 exporting config sha256:5e70a818907897fef51cb3bbdde53ac18cb2a6dd9657e540c54012ca9e0ea3b3 done
+#7 exporting attestation manifest sha256:1c06f202e27e3725681c03950dc37e04f8f3fe60c57951bd5e0c6a94b157421f 0.0s done
+#7 exporting manifest list sha256:ebed6f3b9ab40c4e6538d9cb45d700d4a90463549922ba00d41c3f55eb0666a9 0.0s done
 #7 naming to docker.io/library/my-web:1.0 done
-#7 unpacking to docker.io/library/my-web:1.0 done
+#7 unpacking to docker.io/library/my-web:1.0 0.0s done
 #7 DONE 0.1s
 $ docker images
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
 alpine:latest        be2656061b53         13MB         3.94MB        
 hello-world:latest   c567b231f656       25.9kB         9.49kB   U    
-my-web:1.0           e3391dfda803       93.6MB         26.3MB        
+my-web:1.0           ebed6f3b9ab4       93.6MB         26.3MB        
 ubuntu:latest        6a06111c3b0a        163MB         45.9MB   U    
 ```
 
@@ -383,9 +385,9 @@ ubuntu:latest        6a06111c3b0a        163MB         45.9MB   U
 
 ```bash
 $ docker run -d -p 8080:80 --name my-web-8080 my-web:1.0
-f043cc3ff18e5706f86567bbb93e98560308cdd200a446e1af4bd983581811de
+860702f165435db24170bc67f4373ceda3f11b28d88f74915811ed92ce6d52d2
 $ docker run -d -p 8081:80 --name my-web-8081 my-web:1.0
-f61d8e38d1cdae58843f973e69d63585d0e71fce3e4cbf7b3505e5a6b771a493
+35e73fd289a6b1c5193d978d1905896540ebecb01bd0df2181081a99a85a79ef
 $ curl -s http://localhost:8080 | grep -E "h1|Version"
     h1 { color: #2b6cb0; }
   <h1>Hello from my custom NGINX container!</h1>
@@ -396,8 +398,8 @@ $ curl -s http://localhost:8081 | grep -E "h1|Version"
   <p>Version: <code>v1</code></p>
 $ docker ps
 CONTAINER ID   IMAGE        COMMAND                   CREATED         STATUS                            PORTS                                     NAMES
-f61d8e38d1cd   my-web:1.0   "/docker-entrypoint.…"   3 seconds ago   Up 2 seconds (health: starting)   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   my-web-8081
-f043cc3ff18e   my-web:1.0   "/docker-entrypoint.…"   3 seconds ago   Up 3 seconds (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-8080
+35e73fd289a6   my-web:1.0   "/docker-entrypoint.…"   3 seconds ago   Up 3 seconds (health: starting)   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   my-web-8081
+860702f16543   my-web:1.0   "/docker-entrypoint.…"   4 seconds ago   Up 3 seconds (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-8080
 ```
 
 ## 9. Docker 운영 명령
@@ -405,12 +407,13 @@ f043cc3ff18e   my-web:1.0   "/docker-entrypoint.…"   3 seconds ago   Up 3 seco
 ```bash
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                   CREATED          STATUS                            PORTS                                     NAMES
-f61d8e38d1cd   my-web:1.0    "/docker-entrypoint.…"   3 seconds ago    Up 2 seconds (health: starting)   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   my-web-8081
-f043cc3ff18e   my-web:1.0    "/docker-entrypoint.…"   3 seconds ago    Up 3 seconds (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-8080
-ee6e5782d332   ubuntu        "bash"                    12 seconds ago   Exited (137) 6 seconds ago                                                  my-ubuntu
-7c2fc605d172   ubuntu        "bash"                    13 seconds ago   Exited (0) 13 seconds ago                                                   ubuntu-test
-72cd6d5f79fe   hello-world   "/hello"                  16 seconds ago   Exited (0) 16 seconds ago                                                   ecstatic_franklin
-b13384a6a672   hello-world   "/hello"                  19 minutes ago   Exited (0) 19 minutes ago                                                   laughing_heyrovsky
+35e73fd289a6   my-web:1.0    "/docker-entrypoint.…"   3 seconds ago    Up 3 seconds (health: starting)   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   my-web-8081
+860702f16543   my-web:1.0    "/docker-entrypoint.…"   4 seconds ago    Up 4 seconds (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-8080
+2c40cb2386a6   ubuntu        "bash"                    17 seconds ago   Exited (137) 9 seconds ago                                                  my-ubuntu
+d8183bd47a1a   ubuntu        "bash"                    19 seconds ago   Exited (0) 18 seconds ago                                                   ubuntu-test
+1683d4365d1b   hello-world   "/hello"                  24 seconds ago   Exited (0) 24 seconds ago                                                   intelligent_ellis
+72cd6d5f79fe   hello-world   "/hello"                  32 minutes ago   Exited (0) 32 minutes ago                                                   ecstatic_franklin
+b13384a6a672   hello-world   "/hello"                  51 minutes ago   Exited (0) 51 minutes ago                                                   laughing_heyrovsky
 $ docker logs my-web-8080
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
@@ -421,29 +424,29 @@ $ docker logs my-web-8080
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
 /docker-entrypoint.sh: Configuration complete; ready for start up
-2026/11/02 07:54:01 [notice] 1#1: using the "epoll" event method
-2026/11/02 07:54:01 [notice] 1#1: nginx/1.31.8
-2026/11/02 07:54:01 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
-2026/11/02 07:54:01 [notice] 1#1: OS: Linux 6.18.54.1-microsoft-standard-WSL2
-2026/11/02 07:54:01 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
-2026/11/02 07:54:01 [notice] 1#1: start worker processes
-2026/11/02 07:54:01 [notice] 1#1: start worker process 30
-2026/11/02 07:54:01 [notice] 1#1: start worker process 31
-2026/11/02 07:54:01 [notice] 1#1: start worker process 32
-2026/11/02 07:54:01 [notice] 1#1: start worker process 33
-2026/11/02 07:54:01 [notice] 1#1: start worker process 34
-2026/11/02 07:54:01 [notice] 1#1: start worker process 35
-2026/11/02 07:54:01 [notice] 1#1: start worker process 36
-2026/11/02 07:54:01 [notice] 1#1: start worker process 37
-2026/11/02 07:54:01 [notice] 1#1: start worker process 38
-2026/11/02 07:54:01 [notice] 1#1: start worker process 39
-2026/11/02 07:54:01 [notice] 1#1: start worker process 40
-2026/11/02 07:54:01 [notice] 1#1: start worker process 41
-172.17.0.1 - - [02/Nov/2026:07:54:04 +0000] "GET / HTTP/1.1" 200 526 "-" "curl/8.23.0" "-"
+2026/11/02 08:25:55 [notice] 1#1: using the "epoll" event method
+2026/11/02 08:25:55 [notice] 1#1: nginx/1.31.8
+2026/11/02 08:25:55 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+2026/11/02 08:25:55 [notice] 1#1: OS: Linux 6.18.54.1-microsoft-standard-WSL2
+2026/11/02 08:25:55 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/11/02 08:25:55 [notice] 1#1: start worker processes
+2026/11/02 08:25:55 [notice] 1#1: start worker process 30
+2026/11/02 08:25:55 [notice] 1#1: start worker process 31
+2026/11/02 08:25:55 [notice] 1#1: start worker process 32
+2026/11/02 08:25:55 [notice] 1#1: start worker process 33
+2026/11/02 08:25:55 [notice] 1#1: start worker process 34
+2026/11/02 08:25:55 [notice] 1#1: start worker process 35
+2026/11/02 08:25:55 [notice] 1#1: start worker process 36
+2026/11/02 08:25:55 [notice] 1#1: start worker process 37
+2026/11/02 08:25:55 [notice] 1#1: start worker process 38
+2026/11/02 08:25:55 [notice] 1#1: start worker process 39
+2026/11/02 08:25:55 [notice] 1#1: start worker process 40
+2026/11/02 08:25:55 [notice] 1#1: start worker process 41
+172.17.0.1 - - [02/Nov/2026:08:25:58 +0000] "GET / HTTP/1.1" 200 516 "-" "curl/8.23.0" "-"
 $ docker stats --no-stream
 CONTAINER ID   NAME          CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
-f61d8e38d1cd   my-web-8081   0.00%     11.78MiB / 7.612GiB   0.15%     1.74kB / 1.27kB   0B / 8.19kB       13
-f043cc3ff18e   my-web-8080   0.00%     12.11MiB / 7.612GiB   0.16%     1.93kB / 1.27kB   4.33MB / 12.3kB   13
+35e73fd289a6   my-web-8081   0.00%     11.75MiB / 7.612GiB   0.15%     1.74kB / 1.26kB   0B / 8.19kB       13
+860702f16543   my-web-8080   0.00%     12.32MiB / 7.612GiB   0.16%     1.93kB / 1.26kB   4.34MB / 12.3kB   13
 $ docker inspect --format "{{.State.Health.Status}}" my-web-8080
 starting
 ```
@@ -452,7 +455,7 @@ starting
 
 ```bash
 $ docker run -d -p 8082:80 --name my-web-bind -v "C:/Users/82103/dev-workstation/app:/usr/share/nginx/html" my-web:1.0
-eedc5d896e25757e5c9f23883dee165749aa5e0178fb379c4a594be27731c32f
+a4dc09fa97aa10d9f6b1b2affc18e40b6070ce5040a6f96c23304f294c6984b9
 $ curl -s http://localhost:8082 | grep Version
   <p>Version: <code>v1</code></p>
 $ (호스트에서 app/index.html 의 v1 → v2 수정)
@@ -466,19 +469,19 @@ $ curl -s http://localhost:8082 | grep Version
 $ docker volume create mydata
 mydata
 $ docker run -d --name vol-test -v mydata:/data ubuntu sleep infinity
-842cb6b6b2212280f57c122a80f6206d61c343d00658b1b9bbd7549d1580228c
+915bb96d163cd4ef835af620d75905e719b44e3014314c0c34d3c9185cf4137f
 $ docker exec vol-test bash -c "echo persistent-data > /data/hello.txt && cat /data/hello.txt"
 persistent-data
 $ docker rm -f vol-test
 vol-test
 $ docker run -d --name vol-test2 -v mydata:/data ubuntu sleep infinity
-cfe5f793a40ab789d1122e9d130d8291477ff7291cb9fd6368e94d630794e555
+d2991a0521794e48927af0e21e2255219c33ea4e40e4682f9f2e8627755714ad
 $ docker exec vol-test2 cat /data/hello.txt
 persistent-data
 $ docker volume inspect mydata
 [
     {
-        "CreatedAt": "2026-11-02T07:54:10Z",
+        "CreatedAt": "2026-11-02T08:26:07Z",
         "Driver": "local",
         "Labels": null,
         "Mountpoint": "/var/lib/docker/volumes/mydata/_data",
@@ -506,11 +509,11 @@ $ git remote -v
 origin	https://github.com/17lucky71/dev-workstation.git (fetch)
 origin	https://github.com/17lucky71/dev-workstation.git (push)
 $ git log --oneline -5
-4290bcd feat: ubuntu 내부 진입, attach/exec 비교 자동 실습 추가
-ed4b052 docs: VSCode GitHub 연동 스크린샷, 체크리스트 완료
-ce11f1a docs: 8081 포트 접속 스크린샷
-b87145a docs: 8080 포트 접속 스크린샷
-47b3589 docs: 실행 환경/검증 요약/트러블슈팅 반영
+1f77d73 docs: 커스텀 포인트 표에 authors LABEL 추가
+58da615 feat: Docker/Git 상태 대시보드 + 바탕화면 바로가기
+336c76d feat: Dockerfile 작성자 LABEL 추가, 페이지 문구 수정
+3a906a5 docs: README를 실제 실행 로그 기준으로 전면 정리
+e236757 evidence: rerun
 ```
 
 ## 13. (보너스) Docker Compose
@@ -519,22 +522,22 @@ b87145a docs: 8080 포트 접속 스크린샷
 $ docker compose up -d --build
  Image my-web:1.0 Building 
 #1 [internal] load local bake definitions
-#1 reading from stdin 514B 0.0s done
-#1 DONE 0.0s
+#1 reading from stdin 514B 0.1s done
+#1 DONE 0.1s
 
 #2 [internal] load build definition from Dockerfile
-#2 transferring dockerfile: 813B 0.0s done
+#2 transferring dockerfile: 867B 0.0s done
 #2 DONE 0.0s
 
 #3 [internal] load metadata for docker.io/library/nginx:alpine
-#3 DONE 0.4s
+#3 DONE 0.5s
 
 #4 [internal] load .dockerignore
 #4 transferring context: 2B done
 #4 DONE 0.0s
 
 #5 [internal] load build context
-#5 transferring context: 596B done
+#5 transferring context: 586B 0.0s done
 #5 DONE 0.0s
 
 #6 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
@@ -546,14 +549,13 @@ $ docker compose up -d --build
 
 #8 exporting to image
 #8 exporting layers done
-#8 exporting manifest sha256:42ccce365682497f975063f8b93c4f5fe2a1b0fb1ebb39cc77e0091e89bb0173 done
-#8 exporting config sha256:be018ab0195a9eb057d2a7107723c43c193aee28ed143663bb89bbed3d59dd20 done
-#8 exporting attestation manifest sha256:68b2c2a81a89dfbd01a8b862061b80b11c26712f076a9b51ece4d3eab868b3f1 0.0s done
-#8 exporting manifest list sha256:1713c671d420efa79e6f11491de8ac9042f52064e1bc734bd32eb65664944d8c 0.0s done
-#8 naming to docker.io/library/my-web:1.0
+#8 exporting manifest sha256:97b8e4f9532624ab6dd0c6761ef615aebe221091f0c563d399d1eaf9d028e54d 0.0s done
+#8 exporting config sha256:dbc8e6bb77b1b9988599d5fec13e24ba72ea79f694464301001642a6668896fe 0.0s done
+#8 exporting attestation manifest sha256:e13364ace9141ea9897e2220c3f8eaf87c72a753a67d53f0451995f740be1c04 0.0s done
+#8 exporting manifest list sha256:12b102ddccccf9c2dbbbdc83eb6e3c7c1680f6a3e09070da82bff8b2af62b891 0.0s done
 #8 naming to docker.io/library/my-web:1.0 done
 #8 unpacking to docker.io/library/my-web:1.0 done
-#8 DONE 0.1s
+#8 DONE 0.2s
 
 #9 resolving provenance for metadata file
 #9 DONE 0.0s
@@ -567,7 +569,7 @@ $ docker compose up -d --build
  Container dev-workstation-helper-1 Creating 
  Container dev-workstation-helper-1 Created 
  Container dev-workstation-web-1 Starting 
-Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint dev-workstation-web-1 (e6630d92786c8ff2fdae3f59c1dcba86c6d3289fb7787a11405fd96ff84d3113): Bind for 0.0.0.0:8080 failed: port is already allocated
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint dev-workstation-web-1 (4499b94b0ad03e7afc7d0e1285051fb11f18bd359917581804850668d1e2307f): Bind for 0.0.0.0:8080 failed: port is already allocated
 $ docker compose ps
 NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
 $ docker compose logs --tail 10 helper
@@ -600,8 +602,8 @@ $ curl -s http://localhost:9090 | grep h1
   <h1>Hello from my custom NGINX container!</h1>
 $ docker compose ps
 NAME                       IMAGE        COMMAND                   SERVICE   CREATED          STATUS                             PORTS
-dev-workstation-helper-1   alpine       "sh -c 'while true; …"   helper    13 seconds ago   Up 12 seconds                      
-dev-workstation-web-1      my-web:1.0   "/docker-entrypoint.…"   web       13 seconds ago   Up 12 seconds (health: starting)   0.0.0.0:9090->80/tcp, [::]:9090->80/tcp
+dev-workstation-helper-1   alpine       "sh -c 'while true; …"   helper    13 seconds ago   Up 13 seconds                      
+dev-workstation-web-1      my-web:1.0   "/docker-entrypoint.…"   web       13 seconds ago   Up 13 seconds (health: starting)   0.0.0.0:9090->80/tcp, [::]:9090->80/tcp
 $ docker compose logs --tail 6 helper
 helper-1  |   <title>My Dev Workstation</title>
 helper-1  | <!DOCTYPE html>
