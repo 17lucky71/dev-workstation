@@ -45,7 +45,7 @@ bash scripts/collect_evidence.sh      # Docker(OrbStack / Docker Desktop) 실행
 - [x] 포트 매핑 접속 (2회)
 - [x] 바인드 마운트 반영
 - [x] 볼륨 영속성
-- [ ] Git 설정 + VSCode GitHub 연동 (git 설정 ✅ / VSCode 스크린샷 대기)
+- [x] Git 설정 + VSCode GitHub 연동
 - [x] (보너스) Docker Compose / 환경 변수 / SSH 키
 
 ## 3) 저장소 구조
@@ -186,6 +186,9 @@ $ git config --global init.defaultBranch main
 $ git config --list
 ```
 ![VSCode GitHub 연동](docs/screenshots/vscode-github.png)
+
+- 왼쪽 아래 계정 메뉴: **17lucky71 (GitHub)** 로그인 확인
+- 상태 표시줄: `main` 브랜치 표시 → 로컬 저장소가 `origin`(GitHub)과 연동됨
 
 **Git vs GitHub**: Git은 내 컴퓨터에서 변경 이력을 관리하는 **로컬 버전관리 도구**, GitHub는 Git 저장소를 원격에 올려 공유·리뷰·협업하는 **플랫폼**이다.
 
