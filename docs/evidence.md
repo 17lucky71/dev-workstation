@@ -1,7 +1,7 @@
 # 수행 로그 (증거)
 
 > `scripts/collect_evidence.sh` 로 자동 수집한 실제 터미널 명령/출력입니다.
-> 수집 시각: 2026-11-02 15:53:45    
+> 수집 시각: 2026-11-02 15:56:08    
 
 ## 1. 실행 환경
 
@@ -35,23 +35,23 @@ $ mv note_copy.txt renamed.txt
 $ mkdir tmpdir && mv renamed.txt tmpdir/
 $ ls -la
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 ..
--rw-r--r-- 1 82103 197609  0 Nov  2 15:53 empty.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 note.txt
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 tmpdir
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 ..
+-rw-r--r-- 1 82103 197609  0 Nov  2 15:56 empty.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 note.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 tmpdir
 $ ls -la tmpdir
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 ..
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 renamed.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 ..
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 renamed.txt
 $ rm tmpdir/renamed.txt && rmdir tmpdir
 $ ls -la
 total 1
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 .
-drwxr-xr-x 1 82103 197609  0 Nov  2 15:53 ..
--rw-r--r-- 1 82103 197609  0 Nov  2 15:53 empty.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 note.txt
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 .
+drwxr-xr-x 1 82103 197609  0 Nov  2 15:56 ..
+-rw-r--r-- 1 82103 197609  0 Nov  2 15:56 empty.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 note.txt
 $ cd .. && pwd
 /c/Users/82103/codyssey
 $ ls "/c/Users/82103/codyssey/practice/note.txt"
@@ -64,17 +64,17 @@ $ ls "/c/Users/82103/codyssey/practice/note.txt"
 
 ```bash
 $ ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 note.txt
 $ chmod 755 note.txt && ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 note.txt
 $ chmod 644 note.txt && ls -l note.txt
--rw-r--r-- 1 82103 197609 15 Nov  2 15:53 note.txt
+-rw-r--r-- 1 82103 197609 15 Nov  2 15:56 note.txt
 $ mkdir -p perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 15:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 15:56 perm_dir
 $ chmod 700 perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 15:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 15:56 perm_dir
 $ chmod 755 perm_dir && ls -ld perm_dir
-drwxr-xr-x 1 82103 197609 0 Nov  2 15:53 perm_dir
+drwxr-xr-x 1 82103 197609 0 Nov  2 15:56 perm_dir
 ```
 Linux 컨테이너 안에서 동일 실험:
 
@@ -218,6 +218,8 @@ $ git remote -v
 origin	https://github.com/17lucky71/dev-workstation.git (fetch)
 origin	https://github.com/17lucky71/dev-workstation.git (push)
 $ git log --oneline -5
+89846a2 docs: 트러블슈팅 추가 (docker PATH, Windows chmod)
+93dcc7c add evidence logs
 2d82b56 feat: Windows 원클릭 실행 파일 추가
 75ad040 feat: 증거 로그 자동 수집 스크립트, 트러블슈팅 작성
 a58844c init: 개발 워크스테이션 스타터 파일
