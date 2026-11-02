@@ -15,3 +15,5 @@ COPY app/ /usr/share/nginx/html/
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost/ >/dev/null || exit 1
 
 EXPOSE 80
+LABEL org.opencontainers.image.authors="17lucky71"
+
