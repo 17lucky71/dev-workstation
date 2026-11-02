@@ -42,7 +42,7 @@ bash scripts/collect_evidence.sh      # Docker(OrbStack / Docker Desktop) 실행
 - [x] Docker 운영 명령 (`images`, `ps -a`, `logs`, `stats`)
 - [x] hello-world / ubuntu 컨테이너 실행
 - [x] Dockerfile 커스텀 이미지 빌드/실행
-- [x] 포트 매핑 접속 (2회) — curl ✅ / 브라우저 스크린샷 대기
+- [x] 포트 매핑 접속 (2회)
 - [x] 바인드 마운트 반영
 - [x] 볼륨 영속성
 - [ ] Git 설정 + VSCode GitHub 연동 (git 설정 ✅ / VSCode 스크린샷 대기)
