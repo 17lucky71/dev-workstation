@@ -1,0 +1,18 @@
+# 보너스 과제: Docker Compose (웹 서버 + 보조 서비스)
+services:
+  web:
+    build: .
+    image: my-web:1.0
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+    volumes:
+      - ./app:/usr/share/nginx/html:ro   # 바인드 마운트: 호스트 수정 즉시 반영
+
+  helper:
+    image: alpine
+    command: sh -c "while true; do wget -qO- http://web/ | head -n 5; sleep 10; done"
+    depends_on:
+      - web
+    # 같은 Compose 네트워크 안에서 서비스 이름(web)으로 통신 확인
